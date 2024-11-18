@@ -1,1 +1,4 @@
 *.DS_Store
+
+CattProject_Cube/OUT
+CattProject_Cube/IN/*.BKP
