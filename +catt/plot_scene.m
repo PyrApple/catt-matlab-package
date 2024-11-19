@@ -49,7 +49,7 @@ if( ~isempty(fieldnames(sources)) )
         isActive = md9.sources_used(letterId, numId);
     
         % define color based on status
-        if( isActive ); c = [1 .3 .3]; else c = [0.8 0.5 0.5]; end
+        if( isActive ); c = [1 .4 .4]; else c = [0.9 0.7 0.7]; end
     
         % plot source
         plot3(source.xyz(1), source.xyz(2), source.xyz(3), 'ok', 'markerfacecolor', c, 'markersize', msize);
@@ -73,7 +73,7 @@ if( ~isempty(fieldnames(receivers)) )
         isActive = md9.receivers_used(receiver.id + 1);
     
         % define color based on status
-        if( isActive ); c = [.5 .5 1]; else c = [0.7 0.7 0.9]; end
+        if( isActive ); c = [.6 .6 1]; else c = [0.8 0.8 0.9]; end
     
         % plot source
         plot3(receiver.xyz(1), receiver.xyz(2), receiver.xyz(3), 'ok', 'markerfacecolor', c, 'markersize', msize);
