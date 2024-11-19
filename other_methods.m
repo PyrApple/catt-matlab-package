@@ -2,7 +2,7 @@
 
 % define project config
 config = struct();
-config.folder = fullfile(fileparts(pwd), 'CattProject_Cube');
+config.folder = fullfile(pwd, 'CattProject_Cube');
 config.in = fullfile(config.folder, 'IN');
 config.out = fullfile(config.folder, 'OUT');
 config.md9 = fullfile(config.in, 'CATT.MD9');
@@ -30,6 +30,13 @@ receivers = catt.read_receiver(config.rec);
 
 % read source file
 sources = catt.read_source(config.src);
+
+% read geo file
+geo = catt.read_geo(config.geo);
+
+% write geo file
+filePath = fullfile(config.out, 'MASTER_MATLAB.GEO');
+catt.write_geo(filePath, geo);
 
 
 %% misc read output files

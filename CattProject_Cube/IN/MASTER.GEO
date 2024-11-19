@@ -4,8 +4,8 @@
 ;FILE GENERATED VIA BLENDER CATT EXPORT ADD-ON
 ;BASED ON .BLEND FILE: Cube.blend
 
-abs mat0 = <99 99 99 99 99 99 : 99 99 > L < 0 0 0 0 0 0 : 0 0> {150 150 150} 
-abs mat1 = <10 10 10 10 10 10 : 11 12 > L < 0 0 0 0 0 0 : 0 0> {50 150 154}
+ABS mat0 = <99 99 99 99 99 99 : 99 99 > L < 0 0 0 0 0 0 : 0 0> {150 150 150}
+ABS mat1 = <10 10 10 10 10 10 : 11 12 > L < 0 0 0 0 0 0 : 0 0> {50 150 154}
 
 CORNERS
 
