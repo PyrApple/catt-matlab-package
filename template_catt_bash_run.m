@@ -53,6 +53,7 @@ ret = dos( [ '"' paths.catt '" "' config.md9 '"' ' /AUTO' ] );
 % handle error
 if ret ~= 0; error('script failed for CATT9'); end
 
+
 %% run TUCT (with the new CAG)
 
 % get the appended CAG-file counter (a single 32-bit integer)
@@ -74,3 +75,4 @@ if ret ~= 0
     eval(['type ' config.cagbase num2str(count) '_autorun_error.TXT' ]);
     error('script failed for TUCT:'); 
 end
+

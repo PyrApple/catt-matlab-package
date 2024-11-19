@@ -38,6 +38,9 @@ geo = catt.read_geo(config.geo);
 filePath = fullfile(config.in, 'MASTER_MATLAB.GEO');
 catt.write_geo(filePath, geo);
 
+% plot scene (all arguments are optional)
+catt.plot_scene('geo', geo, 'sources', sources, 'receivers', receivers, 'md9', md9);
+
 
 %% misc read output files
 
