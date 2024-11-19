@@ -1,4 +1,9 @@
+# MacOS files
 *.DS_Store
 
-CattProject_Cube/OUT
+# ignore all OUT folder but for .gitkeep file
+CattProject_Cube/OUT/*
+!CattProject_Cube/OUT/.gitkeep
+
+# ignore catt backup files
 CattProject_Cube/IN/*.BKP
