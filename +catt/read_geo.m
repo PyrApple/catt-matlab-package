@@ -1,8 +1,6 @@
 
 % todo dpq
-% - support empty lines between CORNERS and data, PLANES and data
-% - support ABS or abs
-% - change output structure organisation 
+% - handle 'GLOBAL', 'INCLUDE', 'LOCAL' definitions (or explicitely say it's not)
 
 function geo = read_geo(filename)
 
@@ -47,7 +45,7 @@ while ~feof(fid)
         case 'corners'
 
             % format corner line
-            tmp = sscanf(line, '%f');
+            tmp = sscanf(line, '%f').';
 
             % discard if not only number line
             % if( isempty(tmp) ); continue; end
@@ -89,9 +87,9 @@ function material = process_line_material(line)
 % init locals
 material = struct();
 
-% extract name
-tmp = strip(extractBetween(line, 'ABS', '='));
-material.name = tmp{1};
+% extract name (lowered as catt not case-sensitive and some .geo file alternate)
+tmp = strip(extractBetween(lower(line), 'abs', '='));
+material.name = lower(tmp{1});
 
 % extrac absorption
 tmp = extractBetween(line, '<', '>');
@@ -131,7 +129,7 @@ tmp = extractBetween(line, '/', ']');
 tmp = strsplit(tmp{1}, '/');
 
 plane.corners = sscanf(tmp{1}, '%d').';
-plane.material = strip(tmp{2});
+plane.material = lower(strip(tmp{2}));
 
 end
 
