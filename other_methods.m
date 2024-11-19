@@ -42,11 +42,11 @@ catt.write_geo(filePath, geo);
 %% misc read output files
 
 % read ims
-filePath = fullfile(config.out, 'Cube Simple_2_ISM_export.txt');
+filePath = fullfile(config.out, 'Cube_1_ISM_export.txt');
 images = catt.read_imagesource(filePath);
 
 % read estimated parameters
-filePath = fullfile(config.out, 'Cube Simple_2_A3_03.TXT');
+filePath = fullfile(config.out, 'Cube_1_A3_03.TXT');
 parameters = catt.read_acoustic_parameter(filePath);
 
 % read .rir mat file
