@@ -35,7 +35,7 @@ sources = catt.read_source(config.src);
 geo = catt.read_geo(config.geo);
 
 % write geo file
-filePath = fullfile(config.out, 'MASTER_MATLAB.GEO');
+filePath = fullfile(config.in, 'MASTER_MATLAB.GEO');
 catt.write_geo(filePath, geo);
 
 
@@ -50,9 +50,7 @@ filePath = fullfile(config.out, 'Cube_1_A3_03.TXT');
 parameters = catt.read_acoustic_parameter(filePath);
 
 % read .rir mat file
-fileList = dir(fullfile(config.out, '*.MAT'));
-file = fileList(1);
-filePath = fullfile(file.folder, file.name);
+filePath = fullfile(config.out, 'Cube_1_A3_03_BF.MAT');
 [ir, fs] = catt.read_ir_mat(filePath);
 
 
