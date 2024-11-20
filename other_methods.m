@@ -49,7 +49,7 @@ filePath = fullfile(config.out, 'Cube_1_ISM_export.txt');
 images = catt.read_imagesource(filePath);
 
 % read estimated parameters
-filePath = fullfile(config.out, 'Cube_1_A3_03.TXT');
+filePath = fullfile(config.out, 'Cube_CATT_Interactive_RT60.TXT');
 parameters = catt.read_acoustic_parameter(filePath);
 
 % read .rir mat file

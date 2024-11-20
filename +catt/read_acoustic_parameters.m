@@ -1,4 +1,4 @@
-function s = readRT60ExportCatt( filePath )
+function s = read_acoustic_parameters( filePath )
         
     % read data from rought rt60 estimation export 
     % (from "interactive estimation" window in CATT)
