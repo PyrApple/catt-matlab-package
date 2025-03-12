@@ -19,7 +19,8 @@ msize = 24;
 fsize = 14;
 
 % init plot
-plot3(0, 0, 0, 'handlevisibility', 'off'); hold on,
+plot3(0, 0, 0, 'handlevisibility', 'off');
+hold on,
 
 % plot geo
 if( ~isempty(fieldnames(geo)) )
@@ -45,7 +46,7 @@ if( ~isempty(fieldnames(sources)) )
     
         % get source status (active or not)
         letterId = double(source.idStr(1)) - 64;
-        numId = str2double(source.idStr(2));
+        numId = str2double(source.idStr(2)) + 1; % +1 because catt sources ids start from 0
         isActive = md9.sources_used(letterId, numId);
     
         % define color based on status
@@ -84,6 +85,8 @@ if( ~isempty(fieldnames(receivers)) )
 end
 
 % format plot
+axis equal,
+xlabel('x (m)'); ylabel('y (m)'); zlabel('z (m)');
 hold off,
 
 
