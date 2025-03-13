@@ -11,7 +11,7 @@ config.rec = fullfile(config.in, 'REC.LOC');
 config.src = fullfile(config.in, 'SRC.LOC');
 
 
-%% misc read input files
+%% misc read files used as input for catt
 
 % read input md9 file
 md9 = catt.read_md9(config.md9);
@@ -19,20 +19,17 @@ md9 = catt.read_md9(config.md9);
 % % write to file
 % catt.write_md9(config.md9, md9);
 
-% read material
-materials = catt.read_material(config.geo);
+% read geo file (need currated geo file)
+geo = catt.read_geo(config.geo);
 
-% read materials from .geo file (need currated geo file)
-materials = catt.read_material(config.md9);
+% read only materials from .geo file
+materials = catt.read_material(config.geo);
 
 % read receiver file
 receivers = catt.read_receiver(config.rec);
 
 % read source file
 sources = catt.read_source(config.src);
-
-% read geo file
-geo = catt.read_geo(config.geo);
 
 % write geo file
 filePath = fullfile(config.in, 'MASTER_MATLAB.GEO');

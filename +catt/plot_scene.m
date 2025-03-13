@@ -120,7 +120,7 @@ for iPlane = 1:length(geo.planes)
 
     % plot plane
     c = material.color / 255;
-    patch(corners_xyz(:, 1), corners_xyz(:, 2), corners_xyz(:, 3), c, 'facealpha', 0.2);
+    patch(corners_xyz(:, 1), corners_xyz(:, 2), corners_xyz(:, 3), c, 'facealpha', 0.3);
 
 end
 

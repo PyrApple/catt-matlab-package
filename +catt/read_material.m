@@ -23,7 +23,7 @@ while true
     if ~ischar(tline); break; end
 
     % discard if line not a material line
-    if( ~startsWith(tline, 'abs') ); continue; end
+    if( ~startsWith(lower(tline), 'abs') ); continue; end
     
     % init locals
     mat = matTemplate;

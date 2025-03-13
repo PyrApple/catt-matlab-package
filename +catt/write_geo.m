@@ -16,7 +16,7 @@ function [] = write_geo(filename, geo)
 fid = fopen(filename, 'w');
 
 % file header
-fprintf(fid, ';Header Comment\r\n');
+fprintf(fid, ';File automatically generated from Matlab script\r\n');
 fprintf(fid, '\r\n');
 
 % loop over materials
@@ -26,7 +26,7 @@ for iMat = 1:length(geo.materials)
     material = geo.materials(iMat);
     
     % format line
-    line = ['ABS ' material.name];
+    line = ['ABS ' material.name ' ='];
     line = sprintf('%s <%.1f %.1f %.1f %.1f %.1f %.1f : %.1f %.1f > L', line, material.absorption);
     line = sprintf('%s <%.1f %.1f %.1f %.1f %.1f %.1f : %.1f %.1f > ', line, material.scattering);
     line = sprintf('%s { %d %d %d }\r\n', line, material.color);
