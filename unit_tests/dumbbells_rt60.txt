@@ -1,0 +1,28 @@
+Settings = C:\Users\vicky\ownCloud\WP2-DEV\evert_unit_test_rooms\rooms\Halteres\IN\CATT.MD9
+PROJECT  = Halteres
+MASTER   = MASTER.GEO
+
+The estimated RTs become:
+
+            125   250   500   1k    2k    4k    8k   16k 
+-------------------------------------------------------------------------
+Eyring :    1,58 0,516 0,427 0,181 0,325 0,345 0,510 0,266 s
+Sabine :    1,71 0,649 0,562 0,331 0,458 0,463 0,563 0,284 s
+T-30   :    2,04 0,542 0,483 NaN   0,382 0,456 0,499 NaN   s *)
+-------------------------------------------------------------------------
+<Abs>  :   14,5  38,2  44,0  74,6  52,9  49,1  27,4  30,5 %
+Volume : 2211 m³   <Free path> :  6,20 m
+-------------------------------------------------------------------------
+Schröder frequency:  48 Hz
+-> Geometrical acoustics estimated from band : 250 Hz
+-------------------------------------------------------------------------
+*) from global ray-tracing
+
+** WARNING: The Sabine or Eyring RT may differ considerably from actual
+RT and T-30. It depends on the absorption/scattering distribution and
+if the hall shape is 'mixing' or not. Always compare the Sabine/Eyring
+values to the T-30 values (also from 'TUCT Predict SxR').
+Note that the model has to be constructed according to guide-lines
+or Volume and <Abs> will be in error and thereby also the Sabine
+and Eyring RT values above.
+

@@ -1,0 +1,30 @@
+Settings = C:\Users\vicky\ownCloud\WP2-DEV\evert_unit_test_rooms\Fogg\IN\CATT.MD9
+PROJECT  = Fogg
+MASTER   = MASTER189X.GEO
+
+The estimated RTs become:
+
+            125   250   500   1k    2k    4k    8k   16k 
+-------------------------------------------------------------------------
+Eyring :    2,04   1,57   1,46 0,959 0,941 0,882 0,639 0,319 s
+Sabine :    2,18   1,72   1,60   1,10   1,07 0,982 0,683 0,329 s
+-------------------------------------------------------------------------
+<Abs>  :   12,9  16,3  17,3  25,0  24,7  23,5  22,3  21,1 %
+Volume : 2597 m³   <Free path> :  7,06 m
+-------------------------------------------------------------------------
+Schröder frequency:  54 Hz
+-> Geometrical acoustics estimated from band : 250 Hz
+-------------------------------------------------------------------------
+
+** WARNING: The volume could not be estimated for this model and a
+crude estimate or a manually entered value was used.
+
+
+** WARNING: The Sabine or Eyring RT may differ considerably from actual
+RT and T-30. It depends on the absorption/scattering distribution and
+if the hall shape is 'mixing' or not. Always compare the Sabine/Eyring
+values to the T-30 values (also from 'TUCT Predict SxR').
+Note that the model has to be constructed according to guide-lines
+or Volume and <Abs> will be in error and thereby also the Sabine
+and Eyring RT values above.
+
