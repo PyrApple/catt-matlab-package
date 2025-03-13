@@ -1,4 +1,4 @@
-function s = read_acoustic_parameters( filePath )
+function s = read_interactive_rt60( filePath )
         
     % read data from rought rt60 estimation export 
     % (from "interactive estimation" window in CATT)
@@ -107,6 +107,6 @@ function s = read_acoustic_parameters( filePath )
     fclose( fid );
 
     % shape output
-    s = struct('freqs', freqs, 'T30', T30, 'rt60_Sabine', rt60_Sabine, 'rt60_Eyring', rt60_Eyring);
+    s = struct('freqs', freqs, 't30', T30, 'rt60_sabine', rt60_Sabine, 'rt60_eyring', rt60_Eyring);
     
 end
