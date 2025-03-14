@@ -1,10 +1,12 @@
 function rcv = read_receiver(filePath)
 
-% load RCV.LOC file (rcv ids and positions)
-%  
-% [rcv] = read_receiver(filePath)
+% read_receiver read data from a catt .loc receiver file
 % 
-% rcv is a struct array containing rcv ids and positions
+% rcv = read_receiver(filePath)
+%
+% filePath is a string.
+% rcv is a structure containing receiver informations (ids and positions)
+
 
 % load receiver file
 fid = fopen(filePath);
@@ -48,13 +50,3 @@ rcv(1) = [];
 % sort 
 [~, idx] = sort([rcv.id]);
 rcv = rcv(idx);
-
-return 
-
-
-%% debug
-
-filePath = '/Users/pyrus/Workspace/Matlab/toolbox/_pers/+dpq/+catt/rec.loc';
-rcv = catt.read_receiver(filePath);
-
-rcv

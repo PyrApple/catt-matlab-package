@@ -1,6 +1,13 @@
-function s = read_parameters( filePath )
-        
-% read data from full parameter estimation export
+function s = read_parameters(filePath)
+
+% read_parameters read data from a .txt file containing acoustic parameters
+% exported from TUCT
+%
+% params = read_parameters(filePath)
+%
+% filePath is a string.
+% params is a structure containing info imported from file
+
 
 % init 
 s = struct();
@@ -56,8 +63,8 @@ for iParam = 1:length(params)
     % find line
     idx = find(contains(lines, param.header), 1, 'first');
     if( isempty(idx) )
-    warning('could not find expected %s parameter (%s)', param.header, filePath);
-    continue
+        warning('could not find expected %s parameter (%s)', param.header, filePath);
+        continue
     end
     
     % extract line

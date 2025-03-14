@@ -1,10 +1,13 @@
 function materials = read_material(filePath)
 
-% load material from currated GEO.LOC file (only material definition section
-%  
-% [materials] = read_material(filePath)
+% read_material read material related data from catt .geo file
 % 
-% materials is a struct array containing materials ids, absorption and scattering
+% materials = read_material(filePath)
+%
+% filePath is a string.
+% materials is a struct array containing materials ids, absorption and
+% scattering.
+
 
 % load receiver file
 fid = fopen(filePath);

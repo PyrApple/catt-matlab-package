@@ -1,5 +1,12 @@
 function [] = plot_scene(varargin)
 
+% plot_scene plots a catt scene.
+%
+% [] = plot_scene('geo', geo, 'sources', sources, 'receivers', receivers, 'md9', md9);
+%
+% every input is optional.
+
+
 % init parser
 p = inputParser;
 addOptional(p, 'geo', struct(''), @isstruct);

@@ -1,8 +1,12 @@
+function geo = read_geo(filePath)
 
-% todo dpq
-% - handle 'GLOBAL', 'INCLUDE', 'LOCAL' definitions (or explicitely say it's not)
+% read_geo read info from .geo file
+%
+% geo = read_geo(filePath)
+%
+% filePath is a string.
+% geo is a structure containing info imported from geo file.
 
-function geo = read_geo(filename)
 
 % init locals
 currentSection = 'materials';
@@ -11,7 +15,7 @@ corners = struct('id', 0, 'xyz', []);
 planes = struct('id', 0, 'name', '', 'corners', [], 'material', '');
 
 % open file
-fid = fopen(filename);
+fid = fopen(filePath);
 
 % loop over file content
 while ~feof(fid)

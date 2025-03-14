@@ -1,6 +1,12 @@
-% read data from a CATT-Acoustic .MD9 file
-
 function [config] = read_md9(filePath)
+
+% read_md9 read data from a catt .md9 file
+%
+% config = read_md9(filePath)
+%
+% filePath is a string.
+% config is a structure containing info imported from file
+
 
 % init locals
 specs = catt.md9_specs();

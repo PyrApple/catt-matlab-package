@@ -1,10 +1,12 @@
 function src = read_source(filePath)
 
-% load SRC.LOC file (src ids and positions)
-%  
-% [src] = read_source(filePath)
+% read_source read data from a catt .loc source file
 % 
-% src is a struct array containing src ids and positions
+% src = read_source(filePath)
+%
+% filePath is a string.
+% src is a structure containing source informations (ids and positions)
+
 
 % load source file
 fid = fopen(filePath);
@@ -66,15 +68,3 @@ src = src(idx);
 for iSrc = 1:length(src)
     src(iSrc).id = iSrc;
 end
-
-return
-
-
-%% debug
-
-filePath = '/Users/pyrus/Workspace/Matlab/toolbox/_pers/+dpq/+catt/src.loc';
-src = catt.read_source(filePath);
-
-[src.xyz]
-xyz = reshape([src.xyz].', 3, length(src)).'
-

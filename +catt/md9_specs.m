@@ -1,24 +1,33 @@
-% define MD9 segment sizes and formats used for read/write operations
-
 function [specs] = md9_specs() 
 
-    % init
-    specs = struct();
-    
-    specs.project_name = struct('start', 8, 'length', 70, 'format', 'uint8=>char');
-    specs.input_folder_path = struct('start', 269, 'length', 261, 'format', 'uint8=>char');
-    specs.output_folder_path = struct('start', 530, 'length', 261, 'format', 'uint8=>char');
-    
-    specs.master_file_name = struct('start', 791, 'length', 256, 'format', 'uint8=>char');
-    specs.receiver_file_name = struct('start', 1047, 'length', 256, 'format', 'uint8=>char');
-    specs.source_file_name = struct('start', 1303, 'length', 256, 'format', 'uint8=>char');
-    
-    nCol = 10; nRow = 26;
-    specs.sources_used = struct('start', 1575, 'length', [nCol, nRow], 'format', 'ubit1');
-    specs.receivers_used = struct('start', 1559, 'length', 100, 'format', 'ubit1');
+% md9_specs return a definition of the segments of interest in an md9 binary
+% file, along with the read format to use for each segment.
+%
+% specs = md9_specs()
+%
+% specs is a structure which fields are structure. each substructure defines
+% a chunk of data in the md9 file: data type, read start and read length.
+
+
+% init
+specs = struct();
+
+specs.project_name = struct('start', 8, 'length', 70, 'format', 'uint8=>char');
+specs.input_folder_path = struct('start', 269, 'length', 261, 'format', 'uint8=>char');
+specs.output_folder_path = struct('start', 530, 'length', 261, 'format', 'uint8=>char');
+
+specs.master_file_name = struct('start', 791, 'length', 256, 'format', 'uint8=>char');
+specs.receiver_file_name = struct('start', 1047, 'length', 256, 'format', 'uint8=>char');
+specs.source_file_name = struct('start', 1303, 'length', 256, 'format', 'uint8=>char');
+
+nCol = 10; nRow = 26;
+specs.sources_used = struct('start', 1575, 'length', [nCol, nRow], 'format', 'ubit1');
+specs.receivers_used = struct('start', 1559, 'length', 100, 'format', 'ubit1');
 
 end
 
+
+%% notes
 
 % todo
 % - check real length of all char fields (but for project_name, already checked)

@@ -1,10 +1,13 @@
 function [ir, fs] = read_ir_mat(filePath)
 
-% load CATT .MAT RIR file.
-%  
+% read_ir_mat load an impulse response exported from CATT as a .mat file.
+%
 % [ir, fs] = read_ir_mat(filePath)
 % 
-% ir is a matrix of irs, fs is the sampling frequency.
+% filePath is a string.
+% ir is a matrix containing an ambisonic IR.
+% fs is a sampling frequency.
+
 
 % extract file name
 [~, fileName, ~] = fileparts(filePath);
