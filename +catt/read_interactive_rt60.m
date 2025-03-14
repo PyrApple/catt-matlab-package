@@ -1,4 +1,4 @@
-function s = read_interactive_rt60( filePath )
+function s = read_interactive_rt60(filePath)
 
 % read_interactive_rt60 read data from interactive rt60 estimation .txt file
 % exported from catt.
@@ -8,100 +8,55 @@ function s = read_interactive_rt60( filePath )
 % filePath is a string.
 % params is a structure containing info imported from file
 
+% read file
+fid = fopen(filePath, 'r');
+data = textscan(fid, '%s', 'Delimiter', '\n', 'Whitespace', '');
+fclose(fid);
+lines = data{1};
 
 % init locals
-nBands = 6;
-freqs = nan(nBands, 1);
-T30 = freqs; rt60_Eyring = freqs; rt60_Sabine = freqs;
+s = struct();
 
-% loop over lines
-fid = fopen( filePath, 'r' );
-tline = '';
+% read frequencies
+idx = find(contains(lines, 'The estimated RTs become:'), 1, 'first');
+tmp = lines{idx+2};
+tmp = strrep(tmp, 'k', '000');
+tmp = str2double( strsplit(tmp) );
+tmp = tmp(~isnan(tmp));
+s.freqs = tmp;
 
-while( ischar( tline ) == true )
+% init read parameters
+params = {};
+params{end+1} = struct('name', 'rt60_eyring', 'header', 'Eyring :');
+params{end+1} = struct('name', 'rt60_sabine', 'header', 'Sabine :');
+params{end+1} = struct('name', 't30', 'header', 'T-30   :');
+
+% loop over headers
+for iParam = 1:length(params)
+
+    % init locals
+    param = params{iParam};
     
-    % get new line
-    tline = fgetl( fid );
-    if( ~ischar( tline ) ); break, end
+    % find line
+    idx = find(contains(lines, param.header), 1, 'first');
+    if( isempty(idx) )
+        warning('could not find expected %s parameter (%s)', param.header, filePath);
+        continue
+    end
     
-    % general line shaping
-    tline = strrep( tline, ',', '.' );
+    % extract line
+    tmp = lines{idx};
     
-    % pre freq bands line
-    if( contains( tline, 'The estimated RTs become') )
-        
-        % jump to freq band def line
-        tline = fgetl( fid ); tline = fgetl( fid );
-        
-        % replace k by 000
-        tline = strrep( tline, 'k', '000' );
-        
-        % split line
-        tcell = strsplit(tline, ' ');
-        
-        % str 2 num
-        freqs = cellfun( @(x) str2double( x ), tcell(2:end-1));
-        
-        % reset locals default
-        nBands = length(freqs);
-        %
-        T30 = nan(nBands, 1);
-        rt60_Eyring = T30; rt60_Sabine = T30;
-        
-        % skip remainder
-        continue
-    end
-
-
-    % T-30 line
-    if( contains( tline, 'T-30   :') )
-
-        % split line
-        tcell = strsplit(tline, ' ');
-        
-        % str 2 num
-        T30 = cellfun( @(x) str2double( x ), tcell(3:end-2));
-        if( length(T30) ~= 8 )
-            error('missing T30 values in %s', filePath); % you should manually replace every 4 empty spaces sequence with "NaN"
-        end
-        
-        % skip remainder
-        continue
-    end
-
-
-    % Sabine line
-    if( contains( tline, 'Sabine :') )
-
-        % split line
-        tcell = strsplit(tline, ' ');
-
-        % str 2 num
-        rt60_Sabine = cellfun( @(x) str2double( x ), tcell(3:end-1));
-
-        % skip remainder
-        continue
-    end
-
-    % Eyring line
-    if( contains( tline, 'Eyring :') )
-
-        % split line
-        tcell = strsplit(tline, ' ');
-
-        % str 2 num
-        rt60_Eyring = cellfun( @(x) str2double( x ), tcell(3:end-1));
-
-        % skip remainder
-        continue
-    end
+    % shape line
+    tmp = strrep(tmp, param.header, '');
+    tmp = strip(tmp);
+    tmp = strrep(tmp, ',', '.');
+    tmp = strsplit(tmp);
+    
+    % convert to double
+    tmp = str2double(tmp);
+    s.(param.name) = tmp(1:length(s.freqs));
 
 end
 
-% close file
-fclose( fid );
-
-% shape output
-s = struct('freqs', freqs, 't30', T30, 'rt60_sabine', rt60_Sabine, 'rt60_eyring', rt60_Eyring);
-    
 end
