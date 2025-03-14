@@ -7,6 +7,12 @@ function src = read_source(filePath)
 % filePath is a string.
 % src is a structure containing source informations (ids and positions)
 
+% abort if restricted keywords found
+if( catt.check_restricted_keywords(filePath) ) 
+    % warning('unsupported keyword in file %s, parsing aborted', filePath);
+    src = struct();
+    return
+end
 
 % load source file
 fid = fopen(filePath);

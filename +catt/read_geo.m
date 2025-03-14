@@ -6,22 +6,37 @@ function geo = read_geo(filePath)
 %
 % filePath is a string.
 % geo is a structure containing info imported from geo file.
-
+% 
+% notes:
+% - avoid long material names (there is a hard limit in catt of ... chars)
+% - avoid special characters in material names
+% - there might be a constraint on the normal of the first plane defined in
+%   the geo file
 
 % init locals
+geo = struct();
 currentSection = 'materials';
 materials = struct('name', '', 'absorption', [], 'scattering', [], 'color', []);
 corners = struct('id', 0, 'xyz', []);
 planes = struct('id', 0, 'name', '', 'corners', [], 'material', '');
 
+% abort if restricted keywords found
+if( catt.check_restricted_keywords(filePath) ) 
+    % warning('unsupported keyword in file %s, parsing aborted', filePath);
+    return;
+end
+
 % open file
-fid = fopen(filePath);
+fid = fopen(filePath, 'r');
+data = textscan(fid, '%s', 'Delimiter', '\n', 'Whitespace', '');
+fclose(fid);
+lines = data{1}; 
 
 % loop over file content
-while ~feof(fid)
+for iLine = 1:length(lines)
 
     % read line 
-    line = fgetl(fid);
+    line = lines{iLine};
     
     % skip empty lines
     if isempty(line); continue; end
@@ -66,12 +81,7 @@ while ~feof(fid)
             error('undefined section %s', currentSection)
     end
 
-    
-
 end
-
-% close file
-fclose(fid);
 
 % remove dummys
 materials(1) = [];
@@ -82,6 +92,13 @@ planes(1) = [];
 geo.materials = materials;
 geo.corners = corners;
 geo.planes = planes;
+
+% % check that first plane is upright
+% [n] = polygon_normals(polygons, nodes);
+% 
+% if abs(sum(n(:,1) - [0, 0, 1]')) > 1e-10
+%     warning('CATT requires first plane to be upright');
+% end
 
 end
 
