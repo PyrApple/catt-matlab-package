@@ -12,6 +12,8 @@ function geo = read_geo(filePath)
 % - avoid special characters in material names
 % - there might be a constraint on the normal of the first plane defined in
 %   the geo file
+% - fix .geo files where catt added linebreaks when planes definition was
+%   too long
 
 % init locals
 geo = struct();
@@ -73,7 +75,13 @@ for iLine = 1:length(lines)
             corners(end+1) = struct('id', tmp(1), 'xyz', tmp(2:4));
 
         case 'planes'
-                
+            
+            % discard if line not valid
+            if( sum( ismember(line, '/') ) < 2 )
+                warning('plane discared (line break not supported):\n %s', line);
+                continue
+            end
+
             % save to locals
             planes(end+1) = process_line_plane(line);
 
