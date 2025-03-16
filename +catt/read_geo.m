@@ -76,8 +76,8 @@ for iLine = 1:length(lines)
 
         case 'planes'
             
-            % discard if line not valid
-            if( sum( ismember(line, '/') ) < 2 )
+            % discard if line not valid (line break introduced by catt for long lines
+            if( ~(contains(line, '[') && contains(line, ']')) )
                 warning('plane discared (line break not supported):\n %s', line);
                 continue
             end
@@ -121,6 +121,7 @@ tmp = strip(extractBetween(lower(line), 'abs', '='));
 material.name = lower(tmp{1});
 
 % extrac absorption
+line = strrep(line, ',', '.');
 tmp = extractBetween(line, '<', '>');
 absorption = sscanf(strrep( tmp{1}, ':', '' ), '%f').';
 
