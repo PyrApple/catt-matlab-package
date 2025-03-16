@@ -2,10 +2,9 @@ function [] = plot_scene(varargin)
 
 % plot_scene plots a catt scene.
 %
-% [] = plot_scene('geo', geo, 'sources', sources, 'receivers', receivers, 'md9', md9);
+% [] = plot_scene('geo', geo, 'sources', sources, 'receivers', receivers, 'md9', md9, 'facealpha', 0.3, 'showlegend', false);
 %
 % every input is optional.
-
 
 % init parser
 p = inputParser;
@@ -13,6 +12,8 @@ addOptional(p, 'geo', struct(''), @isstruct);
 addOptional(p, 'sources', struct(''), @isstruct);
 addOptional(p, 'receivers', struct(''), @isstruct);
 addOptional(p, 'md9', struct(''), @isstruct);
+addOptional(p, 'facealpha', 0.3, @isfloat);
+addOptional(p, 'showlegend', false, @islogical);
 
 % parse inputs
 parse(p, varargin{:});
@@ -20,6 +21,8 @@ geo = p.Results.geo;
 md9 = p.Results.md9;
 sources = p.Results.sources;
 receivers = p.Results.receivers;
+facealpha = p.Results.facealpha;
+showlegend = p.Results.showlegend;
 
 % init locals
 msize = 24;
@@ -31,7 +34,7 @@ hold on,
 
 % plot geo
 if( ~isempty(fieldnames(geo)) )
-    plot_geo(geo);
+    plot_geo(geo, facealpha, showlegend);
 end
 
 % default md9
@@ -96,10 +99,12 @@ axis equal,
 xlabel('x (m)'); ylabel('y (m)'); zlabel('z (m)');
 hold off,
 
+end
+
 
 %% local functions 
 
-function [] = plot_geo(geo)
+function [] = plot_geo(geo, facealpha, showlegend)
 
 % init locals
 cornerIds = [geo.corners.id];
@@ -127,7 +132,7 @@ for iPlane = 1:length(geo.planes)
 
     % plot plane
     c = material.color / 255;
-    patch(corners_xyz(:, 1), corners_xyz(:, 2), corners_xyz(:, 3), c, 'facealpha', 0.3);
+    patch(corners_xyz(:, 1), corners_xyz(:, 2), corners_xyz(:, 3), c, 'facealpha', facealpha);
 
 end
 
@@ -136,3 +141,17 @@ axis equal,
 xlabel('x (m)'); ylabel('y (m)'); zlabel('z (m)');
 view([-45 15]);
 title(sprintf('%d materials, %d corners, %d planes', length(geo.materials), length(geo.corners), length(geo.planes)));
+
+% add legend
+if( showlegend )
+
+    % loop over materials
+    for iMat = 1:length(geo.materials)
+        h(iMat) = patch(NaN, NaN, geo.materials(iMat).color / 255, 'facealpha', facealpha);
+    end
+
+    % add Legend
+    legend(h, {geo.materials.name});
+end
+
+end
