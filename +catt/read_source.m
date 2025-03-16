@@ -8,7 +8,7 @@ function src = read_source(filePath)
 % src is a structure containing source informations (ids and positions)
 
 % abort if restricted keywords found
-if( catt.check_restricted_keywords(filePath) ) 
+if( catt.is_parsable(filePath) ) 
     % warning('unsupported keyword in file %s, parsing aborted', filePath);
     src = struct();
     return

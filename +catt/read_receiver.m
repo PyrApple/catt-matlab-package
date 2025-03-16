@@ -8,7 +8,7 @@ function rcv = read_receiver(filePath)
 % rcv is a structure containing receiver informations (ids and positions)
 
 % abort if restricted keywords found
-if( catt.check_restricted_keywords(filePath) ) 
+if( catt.is_parsable(filePath) ) 
     % warning('unsupported keyword in file %s, parsing aborted', filePath);
     rcv = struct();
     return

@@ -21,7 +21,7 @@ corners = struct('id', 0, 'xyz', []);
 planes = struct('id', 0, 'name', '', 'corners', [], 'material', '');
 
 % abort if restricted keywords found
-if( catt.check_restricted_keywords(filePath) ) 
+if( catt.is_parsable(filePath) ) 
     % warning('unsupported keyword in file %s, parsing aborted', filePath);
     return;
 end

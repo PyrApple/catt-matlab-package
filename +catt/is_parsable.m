@@ -1,16 +1,16 @@
-function foundRestrictedKeyword = check_restricted_keywords(filePath)
+function isParsable = is_parsable(filePath)
 
-% check_restricted_keywords check for presence of restricted keyword in
+% is_parsable check for presence of restricted keyword in
 % file at filePath. Restricted keywords such as 'LOCAL', 'GLOBAL', etc. are
 % not supported by the parsers in the toolbox
 %
-% foundRestrictedKeyword = check_restricted_keywords(filePath)
+% isParsable = is_parsable(filePath)
 %
 % filePath is a string.
-% foundRestrictedKeyword is boolean.
+% isParsable is boolean.
 
 % init locals
-foundRestrictedKeyword = false;
+isParsable = false;
 
 % read file
 fid = fopen(filePath, 'r');
@@ -22,7 +22,7 @@ lines = data{1};
 % lines = lower(lines);
 
 % sanity check for unsupported keywords
-keywords = {'GLOBAL', 'INCLUDE', 'LOCAL', 'IF', 'ENDIF'};
+keywords = {'GLOBAL', 'INCLUDE', 'LOCAL', 'IF', 'ENDIF', 'SOURCEDEFS'};
 
 % loop over restricted keywords
 for iWord = 1:length(keywords)
@@ -38,7 +38,7 @@ for iWord = 1:length(keywords)
 
     % trigger unsupported message
     if( ~isempty( idx ) )
-        foundRestrictedKeyword = true;
+        isParsable = true;
         warning('unsupported keyword "%s" in file %s', word, filePath);
     end
 
