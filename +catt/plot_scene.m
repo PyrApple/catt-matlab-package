@@ -129,6 +129,12 @@ for iPlane = 1:length(geo.planes)
     % get plane material
     materialId = find( ismember({geo.materials.name}, plane.material) );
     material = geo.materials(materialId);
+    
+    % handle unknown materials (e.g. when using catt syntax matName(rgb) in geo file)
+    if( isempty(materialId) )
+        warning('undefined materials: %s', plane.material);
+        material = struct('color', [0 0 0]);
+    end
 
     % plot plane
     c = material.color / 255;
