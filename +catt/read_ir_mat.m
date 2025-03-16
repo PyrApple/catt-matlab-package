@@ -5,54 +5,46 @@ function [ir, fs] = read_ir_mat(filePath)
 % [ir, fs] = read_ir_mat(filePath)
 % 
 % filePath is a string.
-% ir is a matrix containing an ambisonic IR.
+% ir is a matrix containing audio data, in the same order as that exported
+% by catt in .wav files (for omni as well as binaural or ambisonic)
 % fs is a sampling frequency.
-
-
-% extract file name
-[~, fileName, ~] = fileparts(filePath);
-
-% get rcv / src ids
-fileNameSplit = strsplit(fileName, '_');
-rcvIdStr = fileNameSplit{end-1};
-srcIdStr = fileNameSplit{end-2};
-% fprintf('%s: src %s rcv %s \n', fileName, srcIdStr, rcvIdStr);
 
 % load file
 s = load(filePath);
 
-% save locals
+% extract fs
 fs = s.TUCT_fs;
+s = rmfield(s, 'TUCT_fs');
 
-% indiv variables to single ir
-cattFmtStr = 'h_%s_%s_BF_%s';
-ir = [];
+% extract audio from struct fields to matrix
+channelNames = fieldnames(s);
 
-% same channel ordering as that of wav file exported from CATT
-ambiChStr = {'W','X','Y','Z','R','S','T','U','V','K','L','M','N','O','P','Q'};
-
-for iCh = 1:length(ambiChStr)
-
-    % get variable name
-    fieldName = sprintf(cattFmtStr, srcIdStr, rcvIdStr, ambiChStr{iCh});
-
-    % discard if doesn't exist (order < 3)
-    if( ~isfield(s, fieldName) )
-        ir = ir(:, 1:(iCh-1));
-        break
-    end
-
-    % get variable from name
-    irTmp = s.(fieldName);
-
-    % first time init
-    if( isempty( ir ) )
-        ir = zeros(length(irTmp), length(ambiChStr));
-    end
-
-    % save to locals
-    ir(:, iCh) = irTmp;
-
-end
+% define channel ordering for omni, binaural, and ambi (fuma) export
+switch length(channelNames)
     
+    case 1
+        
+        pattern = {'_OMNI'};
+    
+    case 2
+       
+        pattern = {'_BIN_L', '_BIN_R'};
+    
+    otherwise
+
+        % same channel ordering as that of wav file exported from CATT
+        pattern = {'BF_W','BF_X','BF_Y','BF_Z','BF_R','BF_S','BF_T','BF_U','BF_V','BF_K','BF_L','BF_M','BF_N','BF_O','BF_P','BF_Q'};
+
 end
+
+% extract ids from struct fields names based on patterns
+ids = cellfun( @(x) find( contains(channelNames, x) ), pattern, 'uniformoutput', false);
+selVect = cellfun(@(x) ~isempty(x), ids);
+ids = cell2mat( ids(selVect) );
+
+% extract channels from struct to mat
+ir = [];
+for iCh = 1:length(ids)
+    ir = [ir; s.(channelNames{ ids(iCh) })];
+end
+ir = ir.';
