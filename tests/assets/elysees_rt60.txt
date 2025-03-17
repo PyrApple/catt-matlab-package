@@ -1,0 +1,28 @@
+Settings = C:\Users\vicky\ownCloud\WP2-DEV\evert_unit_test_rooms\rooms\TheatreChampsElysees\IN\CATT.MD9
+PROJECT  = TheatreChampsElysees
+MASTER   = MASTER.GEO
+
+The estimated RTs become:
+
+            125   250   500   1k    2k    4k    8k   16k 
+-------------------------------------------------------------------------
+Eyring :    1,28   1,23   1,11 0,993 0,847 0,715   1,47 0,435 s
+Sabine :    1,54   1,48   1,36   1,24   1,08 0,907   1,47 0,435 s
+T-30   :    1,45   1,45   1,29   1,24   1,14 0,862   1,48 0,457 s *)
+-------------------------------------------------------------------------
+<Abs>  :   31,6  32,6  35,2  38,0  42,1  44,6   0,0   0,0 %
+Volume : 21177 m³   <Free path> :  12,2 m
+-------------------------------------------------------------------------
+Schröder frequency:  16 Hz
+-> Geometrical acoustics estimated from band : 125 Hz
+-------------------------------------------------------------------------
+*) from global ray-tracing
+
+** WARNING: The Sabine or Eyring RT may differ considerably from actual
+RT and T-30. It depends on the absorption/scattering distribution and
+if the hall shape is 'mixing' or not. Always compare the Sabine/Eyring
+values to the T-30 values (also from 'TUCT Predict SxR').
+Note that the model has to be constructed according to guide-lines
+or Volume and <Abs> will be in error and thereby also the Sabine
+and Eyring RT values above.
+

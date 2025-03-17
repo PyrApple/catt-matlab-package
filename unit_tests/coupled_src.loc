@@ -1,9 +1,0 @@
-;SRC.LOC
-;
-
-SOURCE A1
- DIRECTIVITY = "omni"
- POS = 0 -15.5 -5
- AIMANGLES = 0 0 
- Lp1m_a = <100 100 100 100 100 100 : 100 100>
-END

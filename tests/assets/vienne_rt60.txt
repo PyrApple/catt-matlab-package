@@ -1,0 +1,28 @@
+Settings = C:\Users\vicky\ownCloud\WP2-DEV\evert_unit_test_rooms\rooms\Vienne\IN\CATT.MD9
+PROJECT  = Vienne
+MASTER   = MASTER.GEO
+
+The estimated RTs become:
+
+            125   250   500   1k    2k    4k    8k   16k 
+-------------------------------------------------------------------------
+Eyring :    2,89   2,89   2,80   2,65   2,07   1,27   1,47 0,435 s
+Sabine :    3,14   3,12   3,03   2,87   2,26   1,41   1,47 0,435 s
+T-30   :    3,14   3,13   3,12   2,93   2,31   1,38   1,47 NaN   s *)
+-------------------------------------------------------------------------
+<Abs>  :   15,4  15,3  15,3  15,7  18,6  25,3   0,0   0,0 %
+Volume : 17132 m³   <Free path> :  12,1 m
+-------------------------------------------------------------------------
+Schröder frequency:  27 Hz
+-> Geometrical acoustics estimated from band : 125 Hz
+-------------------------------------------------------------------------
+*) from global ray-tracing
+
+** WARNING: The Sabine or Eyring RT may differ considerably from actual
+RT and T-30. It depends on the absorption/scattering distribution and
+if the hall shape is 'mixing' or not. Always compare the Sabine/Eyring
+values to the T-30 values (also from 'TUCT Predict SxR').
+Note that the model has to be constructed according to guide-lines
+or Volume and <Abs> will be in error and thereby also the Sabine
+and Eyring RT values above.
+

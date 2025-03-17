@@ -1,0 +1,26 @@
+LOCAL phi = 1.618
+LOCAL Xcor = 0
+LOCAL Ycor = -2
+LOCAL Zcor = 2.58
+
+SOURCE A1
+  DIRECTIVITY = "OMNI"
+  POS = -2,5 -3 2.58
+  AIMANGLES = 0 0
+  Lp1m_a = Lp_white 100;
+END
+
+SOURCE A2
+  DIRECTIVITY = "OMNI"
+  POS = 2,5 -1 2.58
+  AIMANGLES = 0 0
+  Lp1m_a = Lp_white 100;
+END
+
+SOURCE A3
+  DIRECTIVITY = "OMNI"
+  POS = Xcor Ycor Zcor
+  AIMANGLES = 0 0
+  Lp1m_a = Lp_white 100;
+END
+
