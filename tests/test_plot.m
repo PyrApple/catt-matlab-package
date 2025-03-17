@@ -2,6 +2,10 @@
 
 % init paths
 folderPath = fullfile(pwd, 'assets');
+outputFolder = fullfile(pwd, 'figures');
+
+% create output folder if required
+if( ~isfolder(outputFolder) ); mkdir(outputFolder); end
 
 % define functions to be tested and test files
 configs = {};
