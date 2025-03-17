@@ -50,7 +50,7 @@ for iConfig = 1:length(configs)
     % save
     filePath = fullfile(pwd, 'figures', [config.name '.png']);
     saveas(gcf, filePath);
-    fprintf('save %s\n', config.name);
+    fprintf('save %s\n', filePath);
 
 end
 

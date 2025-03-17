@@ -1,7 +1,7 @@
 %% init
 
 % get list of functions
-fileList = dir( fullfile(pwd, '+catt', '*m') );
+fileList = dir( fullfile(fileparts(pwd), '+catt', '*m') );
 
 % % debug
 % fileList = fileList(1);
