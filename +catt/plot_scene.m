@@ -30,20 +30,23 @@ fsize = 14;
 
 % init plot
 plot3(0, 0, 0, 'handlevisibility', 'off');
+titleStr = '';
 hold on,
-
-% plot geo
-if( ~isempty(fieldnames(geo)) )
-    plot_geo(geo, facealpha, showlegend);
-end
 
 % default md9
 if( isempty(fieldnames(md9)) )
     md9 = struct();
     md9.sources_used = ones(26, 10);
     md9.receivers_used = ones(100, 1);
+else
+    titleStr = [ titleStr 'Project: ' md9.project_name ',' ];
 end
 
+% plot geo
+if( ~isempty(fieldnames(geo)) )
+    plot_geo(geo, facealpha, showlegend);
+    titleStr = [ titleStr ' ' sprintf('%d materials, %d corners, %d planes', length(geo.materials), length(geo.corners), length(geo.planes)) ];
+end
 
 % plot sources
 if( ~isempty(fieldnames(sources)) )
@@ -63,13 +66,12 @@ if( ~isempty(fieldnames(sources)) )
         if( isActive ); c = [1 .4 .4]; else c = [0.9 0.7 0.7]; end
     
         % plot source
-        plot3(source.xyz(1), source.xyz(2), source.xyz(3), 'ok', 'markerfacecolor', c, 'markersize', msize);
+        plot3(source.xyz(1), source.xyz(2), source.xyz(3), 'ok', 'markerfacecolor', c, 'markersize', msize, 'handlevisibility', 'off');
         text(source.xyz(1), source.xyz(2), source.xyz(3), source.idStr, 'horizontalalignment', 'center', 'fontsize', fsize);
     
     end
 
 end
-
 
 % plot receivers
 if( ~isempty(fieldnames(receivers)) )
@@ -87,7 +89,7 @@ if( ~isempty(fieldnames(receivers)) )
         if( isActive ); c = [.6 .6 1]; else c = [0.8 0.8 0.9]; end
     
         % plot source
-        plot3(receiver.xyz(1), receiver.xyz(2), receiver.xyz(3), 'ok', 'markerfacecolor', c, 'markersize', msize);
+        plot3(receiver.xyz(1), receiver.xyz(2), receiver.xyz(3), 'ok', 'markerfacecolor', c, 'markersize', msize, 'handlevisibility', 'off');
         text(receiver.xyz(1), receiver.xyz(2), receiver.xyz(3), receiver.idStr, 'horizontalalignment', 'center', 'fontsize', fsize);
     
     end
@@ -96,7 +98,9 @@ end
 
 % format plot
 axis equal,
+title(titleStr);
 xlabel('x (m)'); ylabel('y (m)'); zlabel('z (m)');
+view([-45 15]);
 hold off,
 
 end
@@ -142,12 +146,6 @@ for iPlane = 1:length(geo.planes)
 
 end
 
-% format plot
-axis equal,
-xlabel('x (m)'); ylabel('y (m)'); zlabel('z (m)');
-view([-45 15]);
-title(sprintf('%d materials, %d corners, %d planes', length(geo.materials), length(geo.corners), length(geo.planes)));
-
 % add legend
 if( showlegend )
 
@@ -157,7 +155,8 @@ if( showlegend )
     end
 
     % add Legend
-    legend(h, {geo.materials.name});
+    matNames = cellfun(@(x) strrep(x, '_', '-'), {geo.materials.name}, 'UniformOutput', false);
+    legend(h, matNames);
 end
 
 end
