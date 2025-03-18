@@ -8,12 +8,12 @@ function [] = plot_scene(varargin)
 
 % init parser
 p = inputParser;
-addOptional(p, 'geo', struct(''), @isstruct);
-addOptional(p, 'sources', struct(''), @isstruct);
-addOptional(p, 'receivers', struct(''), @isstruct);
-addOptional(p, 'md9', struct(''), @isstruct);
-addOptional(p, 'facealpha', 0.3, @isfloat);
-addOptional(p, 'showlegend', false, @islogical);
+addParameter(p, 'geo', struct(''), @isstruct);
+addParameter(p, 'sources', struct(''), @isstruct);
+addParameter(p, 'receivers', struct(''), @isstruct);
+addParameter(p, 'md9', struct(''), @isstruct);
+addParameter(p, 'facealpha', 0.3, @isfloat);
+addParameter(p, 'showlegend', false, @islogical);
 
 % parse inputs
 parse(p, varargin{:});

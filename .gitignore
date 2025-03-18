@@ -12,3 +12,4 @@
 *.asv
 tests/figures/*.png
 tests/assets/wav_export_out
+tests/debug.m
