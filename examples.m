@@ -55,6 +55,16 @@ params2 = catt.read_parameters(filePath);
 filePath = fullfile(config.folder, 'cube_ambi2nd.mat');
 [ir, fs] = catt.read_ir_mat(filePath);
 
+% convert fuma to ambix wav
+filePath = fullfile(config.folder, 'cube_ambi2nd.wav');
+[ir, fs] = audioread(filePath);
+ir2 = catt.convert_fuma_ambix(ir);
+
+% batch process (norm, convert, etc.) wav files 
+inputFolderPath = fullfile(config.folder, 'wav_export');
+outputFolderPath = fullfile(config.folder, 'wav_export_out');
+catt.process_wav_folder(inputFolderPath, 'outputfolder', outputFolderPath, 'norm', true, 'resample', 48000, 'toambix', true);
+
 
 %% log results to console
 
