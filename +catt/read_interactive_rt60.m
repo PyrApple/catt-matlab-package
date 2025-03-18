@@ -6,7 +6,7 @@ function s = read_interactive_rt60(filePath)
 % params = read_interactive_rt60(filePath)
 %
 % filePath is a string.
-% params is a structure containing info imported from file
+% params is a structure containing info imported from file.
 
 % read file
 fid = fopen(filePath, 'r');

@@ -5,11 +5,11 @@ function src = read_source(filePath)
 % src = read_source(filePath)
 %
 % filePath is a string.
-% src is a structure containing source informations (ids and positions)
+% src is a structure containing source informations (ids and positions).
 
 % abort if restricted keywords found
 if( catt.is_parsable(filePath) ) 
-    % warning('unsupported keyword in file %s, parsing aborted', filePath);
+    warning('unsupported keyword in file %s, parsing aborted', filePath);
     src = struct();
     return
 end

@@ -14,8 +14,9 @@ config.src = fullfile(config.folder, 'cube_src.loc');
 % read input md9 file
 md9 = catt.read_md9(config.md9);
 
-% % write to file
-% catt.write_md9(config.md9, md9);
+% write to file
+filePath = fullfile(config.folder, 'cube_matlab.md9');
+catt.write_md9(filePath, md9);
 
 % read geo file (need currated geo file)
 geo = catt.read_geo(config.geo);

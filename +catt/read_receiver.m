@@ -5,11 +5,11 @@ function rcv = read_receiver(filePath)
 % rcv = read_receiver(filePath)
 %
 % filePath is a string.
-% rcv is a structure containing receiver informations (ids and positions)
+% rcv is a structure containing receiver informations (ids and positions).
 
 % abort if restricted keywords found
 if( catt.is_parsable(filePath) ) 
-    % warning('unsupported keyword in file %s, parsing aborted', filePath);
+    warning('unsupported keyword in file %s, parsing aborted', filePath);
     rcv = struct();
     return
 end

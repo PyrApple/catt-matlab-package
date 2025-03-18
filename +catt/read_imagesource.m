@@ -5,7 +5,7 @@ function s = read_imagesource(filePath)
 % imagesources = read_imagesource(filePath)
 %
 % filePath is a string.
-% imagesources is a structure containing info imported from file
+% imagesources is a structure containing info imported from file.
 
 
 % init locals

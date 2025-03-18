@@ -6,7 +6,7 @@ function [ir, fs] = read_ir_mat(filePath)
 % 
 % filePath is a string.
 % ir is a matrix containing audio data, in the same order as that exported
-% by catt in .wav files (for omni as well as binaural or ambisonic)
+% by catt in .wav files (for omni, binaural, and ambisonic formats).
 % fs is a sampling frequency.
 
 % load file

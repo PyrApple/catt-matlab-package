@@ -8,8 +8,8 @@ function [] = process_wav_folder(inputFolder, varargin)
 % inputfolder is a char
 % outputfolder is a char (optional, default is <inputfolder>_out)
 % norm is a boolean (optional, same norm value applied to all files)
-% resample is a frequency 
-% toambix is a bool, requiring to convert to ambix format (from catt's fuma)
+% resample is a frequency (optional)
+% toambix is a bool, requiring to convert catt's fuma to ambix format (optional)
 
 % init parser
 p = inputParser;
@@ -34,12 +34,14 @@ end
 if( isfolder( outputFolder) )
     
     % prompt user
-    overwrite = input('output folder exists, risk overwrite if names match? Y/N [N]:','s');
+    answer = input('\ncatt process wav folder: output folder exists, \nrisk overwrite if file names match? Y/N [N]: ','s');
 
     % discard
-    if( ~strcmp(overwrite, 'Y') )
-        fprintf('processing aborted \n');
+    if( ~ismember(answer, {'Y', 'y'}) )
+        fprintf('-> process wav folder aborted \n');
         return
+    else
+        fprintf('-> processing wav folder...\n');
     end
 
 end
@@ -85,6 +87,8 @@ for iFile = 1:length(fileList)
     audiowrite(filePath, buffer, fs);
 
 end
+
+fprintf('-> %d files saved to %s \n', length(fileList), outputFolder);
 
 end
 

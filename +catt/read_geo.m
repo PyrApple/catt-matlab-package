@@ -8,12 +8,8 @@ function geo = read_geo(filePath)
 % geo is a structure containing info imported from geo file.
 % 
 % notes:
-% - avoid long material names (there is a hard limit in catt of ... chars)
-% - avoid special characters in material names
-% - there might be a constraint on the normal of the first plane defined in
-%   the geo file
-% - fix .geo files where catt added linebreaks when planes definition was
-%   too long
+% - the parser will ignore planes defined with linebreaks (catt does that 
+%   when the line is too long)
 
 % init locals
 geo = struct();
