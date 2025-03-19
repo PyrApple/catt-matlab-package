@@ -155,7 +155,7 @@ if( showlegend )
     end
 
     % add Legend
-    matNames = cellfun(@(x) strrep(x, '_', '-'), {geo.materials.name}, 'UniformOutput', false);
+    matNames = cellfun(@(x) strrep(x, '_', ' '), {geo.materials.name}, 'UniformOutput', false);
     legend(h, matNames);
 end
 
