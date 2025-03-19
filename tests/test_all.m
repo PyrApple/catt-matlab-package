@@ -7,7 +7,6 @@ folderPath = fullfile(pwd, 'assets');
 configs = {};
 configs{end+1} = struct('fname', 'read_md9', 'spattern', '*.md9');
 configs{end+1} = struct('fname', 'read_geo', 'spattern', '*.geo');
-configs{end+1} = struct('fname', 'read_material', 'spattern', '*.geo');
 configs{end+1} = struct('fname', 'read_receiver', 'spattern', '*rec.loc');
 configs{end+1} = struct('fname', 'read_source', 'spattern', '*src.loc');
 configs{end+1} = struct('fname', 'read_imagesource', 'spattern', '*_ism.txt');

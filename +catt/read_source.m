@@ -7,28 +7,21 @@ function src = read_source(filePath)
 % filePath is a string.
 % src is a structure containing source informations (ids and positions).
 
-% abort if restricted keywords found
-if( catt.is_parsable(filePath) ) 
-    warning('unsupported keyword in file %s, parsing aborted', filePath);
-    src = struct();
-    return
-end
-
-% load source file
-fid = fopen(filePath);
-
 % init locals
-srcTemplate = struct('id', -1, 'idStr', '', 'xyz', [-Inf -Inf -Inf], 'aimpos', [-Inf -Inf -Inf]);
+srcTemplate = struct('id', -1, 'idStr', '', 'xyz', nan(1, 3), 'aimpos', nan(1, 3), 'aimangles', nan(1, 2));
 src = srcTemplate;
 
+% load file
+lines = catt.read_common(filePath);
+
+% if load result is empty, return
+if( isempty(lines) ); src = struct(); return; end
+
 % loop over lines
-while true
+for iLine = 1:length(lines)
     
     % get line
-    tline = fgetl(fid);
-
-    % discard if end of file
-    if ~ischar(tline); break; end
+    tline = lines{iLine};
     
     % start of a new source definition
     if( contains(tline, 'SOURCE ') )
@@ -48,6 +41,11 @@ while true
         tmp = strsplit(tline, '='); tmp = tmp{2};
         s.aimpos = str2num(tmp);
 
+    elseif ( contains(tline, 'AIMANGLES') )
+    
+        tmp = strsplit(tline, '='); tmp = tmp{2};
+        s.aimangles = str2num(tmp);
+
     elseif( contains(tline, 'POS') )
 
         tmp = strsplit(tline, '='); tmp = tmp{2};
@@ -56,9 +54,6 @@ while true
     end
    
 end
-
-% close file
-fclose(fid);
 
 % save last source
 if( exist('s', 'var') ); src(end+1) = s; end

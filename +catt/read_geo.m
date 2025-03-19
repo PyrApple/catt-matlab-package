@@ -18,29 +18,17 @@ materials = struct('name', '', 'absorption', [], 'scattering', [], 'color', []);
 corners = struct('id', 0, 'xyz', []);
 planes = struct('id', 0, 'name', '', 'corners', [], 'material', '');
 
-% abort if restricted keywords found
-if( catt.is_parsable(filePath) ) 
-    % warning('unsupported keyword in file %s, parsing aborted', filePath);
-    return;
-end
+% load file
+lines = catt.read_common(filePath);
 
-% open file
-fid = fopen(filePath, 'r');
-data = textscan(fid, '%s', 'Delimiter', '\n', 'Whitespace', '');
-fclose(fid);
-lines = data{1}; 
+% if load result is empty, return
+if( isempty(lines) ); return; end
 
 % loop over file content
 for iLine = 1:length(lines)
 
     % read line 
     line = lines{iLine};
-    
-    % skip empty lines
-    if isempty(line); continue; end
-    
-    % skip comments
-    if startsWith(line, ';'); continue; end
     
     % switch to corner section 
     if startsWith(line, 'CORNERS'); currentSection = 'corners'; continue; end
@@ -53,9 +41,6 @@ for iLine = 1:length(lines)
 
         case 'materials'
 
-            % discard if not material line
-            % if ~startsWith(line, 'ABS'); warning('unexpected line: %s', line); continue; end
-            
             % save to locals
             materials(end+1) = process_line_material(line);
             
@@ -64,15 +49,12 @@ for iLine = 1:length(lines)
             % format corner line
             tmp = sscanf(line, '%f').';
 
-            % discard if not only number line
-            % if( isempty(tmp) ); continue; end
-
             % save to locals
             corners(end+1) = struct('id', tmp(1), 'xyz', tmp(2:4));
 
         case 'planes'
             
-            % discard if line not valid (line break introduced by catt for long lines
+            % discard if line not valid (line break introduced by catt for long lines)
             if( ~(contains(line, '[') && contains(line, ']')) )
                 warning('plane discared (line break not supported):\n %s', line);
                 continue
@@ -82,6 +64,7 @@ for iLine = 1:length(lines)
             planes(end+1) = process_line_plane(line);
 
         otherwise
+
             error('undefined section %s', currentSection)
     end
 
@@ -97,15 +80,10 @@ geo.materials = materials;
 geo.corners = corners;
 geo.planes = planes;
 
-% % check that first plane is upright
-% [n] = polygon_normals(polygons, nodes);
-% 
-% if abs(sum(n(:,1) - [0, 0, 1]')) > 1e-10
-%     warning('CATT requires first plane to be upright');
-% end
-
 end
 
+
+%% local functions
 
 function material = process_line_material(line)
     
@@ -128,9 +106,9 @@ if( length(tmp) == 2 )
 end
 
 % homogeneise num. el in abs/scat
-nElmt = 8;
-material.absorption = [absorption zeros(nElmt-length(absorption), 1)];
-material.scattering = [scattering zeros(nElmt-length(scattering), 1)];
+nBands = 8;
+material.absorption = [absorption zeros(nBands-length(absorption), 1)];
+material.scattering = [scattering zeros(nBands-length(scattering), 1)];
 
 % extract color
 tmp = extractBetween(line, '{', '}');

@@ -21,9 +21,6 @@ catt.write_md9(filePath, md9);
 % read geo file (need currated geo file)
 geo = catt.read_geo(config.geo);
 
-% read only materials from .geo file
-materials = catt.read_material(config.geo);
-
 % read receiver file
 receivers = catt.read_receiver(config.rec);
 

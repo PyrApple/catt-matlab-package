@@ -7,48 +7,36 @@ function rcv = read_receiver(filePath)
 % filePath is a string.
 % rcv is a structure containing receiver informations (ids and positions).
 
-% abort if restricted keywords found
-if( catt.is_parsable(filePath) ) 
-    warning('unsupported keyword in file %s, parsing aborted', filePath);
-    rcv = struct();
-    return
-end
-
-% load receiver file
-fid = fopen(filePath);
-
 % init locals
 rcvTemplate = struct('id', -1, 'idStr', '', 'xyz', [-Inf -Inf -Inf]);
 rcv = rcvTemplate;
 
+% load file
+lines = catt.read_common(filePath);
+
+% if load result is empty, return
+if( isempty(lines) ); rcv = struct(); return; end
+
+% convert to array
+tmp = cellfun(@str2num, lines, 'UniformOutput', false);
+lines = cell2mat(tmp);
+
 % loop over lines
-while true
+for iLine = 1:size(lines, 1)
     
-    % get line
-    tline = fgetl(fid);
-
-    % discard if end of file
-    if ~ischar(tline); break; end
-    
-    % shape data
-    data = str2num(tline);
-
-    % discard if not a valid receiver line
-    if( isempty(data) ); continue; end
+    % init locals
+    t = lines(iLine, :);
 
     % extract data
     r = rcvTemplate;
-    r.id = data(1);
-    r.idStr = sprintf('%02d', data(1));
-    r.xyz = data(2:4);
+    r.id = t(1);
+    r.idStr = sprintf('%02d', t(1));
+    r.xyz = t(2:4);
     
     % save to locals
     rcv(end+1) = r;
 
 end
-
-% close file
-fclose(fid);
 
 % remove first (dummy) 
 rcv(1) = [];
