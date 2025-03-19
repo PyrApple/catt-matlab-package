@@ -21,15 +21,23 @@ catt.write_md9(filePath, md9);
 % read geo file (need currated geo file)
 geo = catt.read_geo(config.geo);
 
+% write geo file
+filePath = fullfile(config.folder, 'cube_matlab.geo');
+catt.write_geo(filePath, geo);
+
 % read receiver file
 receivers = catt.read_receiver(config.rec);
+
+% write receiver file
+filePath = fullfile(config.folder, 'cube_rec_matlab.loc');
+catt.write_receiver(filePath, receivers);
 
 % read source file
 sources = catt.read_source(config.src);
 
-% write geo file
-filePath = fullfile(config.folder, 'cube_matlab.geo');
-catt.write_geo(filePath, geo);
+% write source file
+filePath = fullfile(config.folder, 'cube_src_matlab.loc');
+catt.write_source(filePath, sources);
 
 % plot scene (all arguments are optional)
 catt.plot_scene('geo', geo, 'sources', sources, 'receivers', receivers, 'md9', md9);
@@ -68,18 +76,18 @@ catt.process_wav_folder(inputFolderPath, 'outputfolder', outputFolderPath, 'norm
 
 % materials
 fprintf('\n# Materials \n\n');
-for iMat = 1:length(materials)
+for iMat = 1:length(geo.materials)
     
-    m = materials(iMat);
+    m = geo.materials(iMat);
 
     fprintf('%s \n', m.name);
 
     fprintf('  absorption: ');
-    fprintf('%.1f ', m.abs);
+    fprintf('%.1f ', m.absorption);
     fprintf('\n');
 
     fprintf('  scattering: ');
-    fprintf('%.1f ', m.scat);
+    fprintf('%.1f ', m.scattering);
     fprintf('\n');
 
     fprintf('  color: ');
