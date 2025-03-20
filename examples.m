@@ -15,28 +15,28 @@ config.src = fullfile(config.folder, 'cube_src.loc');
 md9 = catt.read_md9(config.md9);
 
 % write to file
-filePath = fullfile(config.folder, 'cube_matlab.md9');
+filePath = fullfile(config.folder, 'tmp.md9');
 catt.write_md9(filePath, md9);
 
 % read geo file (need currated geo file)
 geo = catt.read_geo(config.geo);
 
 % write geo file
-filePath = fullfile(config.folder, 'cube_matlab.geo');
+filePath = fullfile(config.folder, 'tmp.geo');
 catt.write_geo(filePath, geo);
 
 % read receiver file
 receivers = catt.read_receiver(config.rec);
 
 % write receiver file
-filePath = fullfile(config.folder, 'cube_rec_matlab.loc');
+filePath = fullfile(config.folder, 'tmp_rec.loc');
 catt.write_receiver(filePath, receivers);
 
 % read source file
 sources = catt.read_source(config.src);
 
 % write source file
-filePath = fullfile(config.folder, 'cube_src_matlab.loc');
+filePath = fullfile(config.folder, 'tmp_src.loc');
 catt.write_source(filePath, sources);
 
 % plot scene (all arguments are optional)
@@ -68,7 +68,7 @@ ir2 = catt.convert_fuma_ambix(ir);
 
 % batch process (norm, convert, etc.) wav files 
 inputFolderPath = fullfile(config.folder, 'wav_export');
-outputFolderPath = fullfile(config.folder, 'wav_export_out');
+outputFolderPath = fullfile(config.folder, 'wav_export_tmp');
 catt.process_wav_folder(inputFolderPath, 'outputfolder', outputFolderPath, 'norm', true, 'resample', 48000, 'toambix', true);
 
 
