@@ -17,19 +17,29 @@ fprintf(fid, '\r\n');
 % loop over receivers
 for iSrc = 1:length(src)
     
+    % init locals
+    s = src(iSrc);
+
     % write id
-    line = sprintf('SOURCE %s\r\n', src(iSrc).idStr);
+    line = sprintf('SOURCE %s\r\n', s.idStr);
     fprintf(fid, line);
 
     % write directivity
     fprintf(fid, ' DIRECTIVITY = "omni"\r\n');
 
     % write pos
-    line = sprintf(' POS = %.2f %.2f %.2f\r\n', src(iSrc).xyz);
+    line = sprintf(' POS = %.2f %.2f %.2f\r\n', s.xyz);
     fprintf(fid, line);
 
-    % write orientation 
-    fprintf(fid, ' AIMPOS = %.2f %.2f %.2f\r\n', src(iSrc).aimpos);
+    % write orientation
+    if( ~all( isnan(s.aimpos) ) )
+        fprintf(fid, ' AIMPOS = %.2f %.2f %.2f\r\n', s.aimpos);
+    end
+
+    % write orientation
+    if( ~all( isnan(s.aimangles) ) )
+        fprintf(fid, ' AIMANGLES = %.2f %.2f\r\n', s.aimangles);
+    end
 
     % write power
     fprintf(fid, ' Lp1m_a = <100 100 100 100 100 100 : 100 100>\r\n');

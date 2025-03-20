@@ -12,6 +12,7 @@ fid = fopen(filepath, 'w');
 
 % file header
 fprintf(fid, ';File automatically generated from Matlab script\r\n');
+fprintf(fid, '\r\n');
 fprintf(fid, 'RECEIVERS\r\n');
 fprintf(fid, '\r\n');
 
