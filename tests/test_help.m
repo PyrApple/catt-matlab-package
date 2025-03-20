@@ -15,7 +15,7 @@ for iFile = 1:length(fileList)
 
     % check function help
     fprintf(2, '\n# %s\n\n', file.name);
-    eval( sprintf('help catt.%s', name));   
-    fprintf('--------- \n\n');
+    eval( sprintf('help catt.%s', name));
+    fprintf('\n')
 
 end

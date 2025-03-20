@@ -19,3 +19,7 @@ tests/assets/wav_export_tmp
 tests/assets/tmp.geo
 tests/assets/tmp_rec.loc
 tests/assets/tmp_src.loc
+
+# non public test files
+tests/assets/aulamagna*
+tests/assets/teatromodena*

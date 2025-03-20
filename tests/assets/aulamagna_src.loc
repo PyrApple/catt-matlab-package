@@ -1,6 +1,0 @@
-SOURCE A1
- DIRECTIVITY = "omni.SD0"
- POS =  5.16  17.8  1.8
- AIMPOS =  5.16  17.82  1.8
- Lp1m_a = <  76.0  76.0  76.0  76.0  76.0  76.0 :   76.0  76.0>
-END
