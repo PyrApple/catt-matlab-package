@@ -8,7 +8,7 @@ function rcv = read_receiver(filePath)
 % rcv is a structure containing receiver informations (ids and positions).
 
 % init locals
-rcvTemplate = struct('id', -1, 'idStr', '', 'xyz', [-Inf -Inf -Inf]);
+rcvTemplate = struct('id', -1, 'idStr', '', 'xyz', nan(1, 3), 'aimpos', nan(1, 3));
 rcv = rcvTemplate;
 
 % load file
@@ -32,6 +32,9 @@ for iLine = 1:size(lines, 1)
     r.id = t(1);
     r.idStr = sprintf('%02d', t(1));
     r.xyz = t(2:4);
+
+    % optional aim pos
+    if( length(t) == 7 ); r.aimpos = t(5:7); end
     
     % save to locals
     rcv(end+1) = r;

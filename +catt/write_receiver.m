@@ -18,8 +18,17 @@ fprintf(fid, '\r\n');
 % loop over receivers
 for iRcv = 1:length(rcv)
     
+    % init locals
+    r = rcv(iRcv);
+
+    % shape line
+    line = sprintf('%s %.2f %.2f %.2f', r.idStr, r.xyz);
+    if( ~all(isnan(r.aimpos)) )
+        line = [line sprintf('%.2f %.2f %.2f', r.aimpos)];
+    end
+    line = [line '\r\n'];
+    
     % write to file
-    line = sprintf('%s %.2f %.2f %.2f\r\n', rcv(iRcv).idStr, rcv(iRcv).xyz);
     fprintf(fid, line);
         
 end
