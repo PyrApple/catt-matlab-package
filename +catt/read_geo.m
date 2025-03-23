@@ -25,10 +25,16 @@ lines = catt.read_common(filePath);
 if( isempty(lines) ); return; end
 
 % loop over file content
+concatLine = false;
 for iLine = 1:length(lines)
 
     % read line 
-    line = lines{iLine};
+    if( concatLine )
+        line = [line ' ' lines{iLine}];
+        concatLine = false;
+    else
+        line = lines{iLine};
+    end
     
     % switch to corner section 
     if startsWith(line, 'CORNERS'); currentSection = 'corners'; continue; end
@@ -54,10 +60,20 @@ for iLine = 1:length(lines)
 
         case 'planes'
             
-            % discard if line not valid (line break introduced by catt for long lines)
+            % handle imcomplete lines (linebreak, requires concatenation with n+1)
             if( ~(contains(line, '[') && contains(line, ']')) )
-                warning('plane discared (line break not supported):\n %s', line);
-                continue
+
+                % flag concatenation required with n+1 line
+                concatLine = true;                
+
+                % skip remainder
+                continue;
+            end
+
+            % skip conditional planes 
+            if( sum(ismember(line, '/')) > 2 )
+                warning('discard plane sub-division line: %s\n', line);
+                continue; 
             end
 
             % save to locals
@@ -131,9 +147,23 @@ plane.name = tmp{2};
 % extract second half (coner ids and material name)
 tmp = extractBetween(line, '/', ']');
 tmp = strsplit(tmp{1}, '/');
-
 plane.corners = sscanf(tmp{1}, '%d').';
-plane.material = lower(strip(tmp{2}));
+material = lower(strip(tmp{2}));
+
+% % handle subdivided planes (won't work for materials with parenthesis in
+% % their name)
+% tmp = extractBetween(line, '(', ')');
+% for iLine = 1:length(tmp)
+%     t = tmp{iLine};
+%     corners = extractBetween(t, '/', '/');
+%     corners = sscanf(corners{1}, '%d').'
+%     t = strsplit(t, '/');
+%     material = strip(t{3})
+% end
+
+% remove potential '*' from material name
+if( contains(material, '*') ); material = extractBefore(material, '*'); end
+plane.material = material;
 
 end
 
