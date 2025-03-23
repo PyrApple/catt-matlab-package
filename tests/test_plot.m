@@ -26,6 +26,8 @@ configs{end+1} = struct('name', 'vienne');
 % % define rooms to test (non public)
 % configs{end+1} = struct('name', 'aulamagna');
 % configs{end+1} = struct('name', 'teatromodena');
+% configs{end+1} = struct('name', 'santasabina');
+% configs{end+1} = struct('name', 'notredame');
 
 % define rooms to test (non functional)
 % configs{end+1} = struct('name', 'morgan');
