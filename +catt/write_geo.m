@@ -27,10 +27,23 @@ for iMat = 1:length(geo.materials)
     % init locals
     material = geo.materials(iMat);
     
-    % format line
+    % format line: absorption
     line = ['ABS ' material.name ' ='];
-    line = sprintf('%s <%.1f %.1f %.1f %.1f %.1f %.1f : %.1f %.1f > L', line, material.absorption);
-    line = sprintf('%s <%.1f %.1f %.1f %.1f %.1f %.1f : %.1f %.1f > ', line, material.scattering);
+    line = sprintf('%s <%.1f %.1f %.1f %.1f %.1f %.1f : %.1f %.1f>', line, material.absorption);
+    
+    % sanity check: warn user that estimate takes priority if both estimate and explicit scattering defined
+    if( ~isnan(material.estimate) && ~isnan(material.scattering(1)) ); warning('geo defines both scattering and estimate, estimate preserved, scattering discarded'); end
+
+    % format line: scattering
+    if( ~isnan(material.estimate) )
+        line = sprintf('%s L', line);
+        line = sprintf('%s <estimate(%.3f)>', line, material.estimate);
+    elseif( ~isnan(material.scattering(1)) )
+        line = sprintf('%s L', line);
+        line = sprintf('%s <%.1f %.1f %.1f %.1f %.1f %.1f : %.1f %.1f> ', line, material.scattering);
+    end
+
+    % format line: color
     line = sprintf('%s { %d %d %d }\r\n', line, material.color);
 
     % write line to file

@@ -14,7 +14,7 @@ function geo = read_geo(filePath)
 % init locals
 geo = struct();
 currentSection = 'materials';
-materials = struct('name', '', 'absorption', [], 'scattering', [], 'color', []);
+materials = struct('name', '', 'absorption', [], 'scattering', [], 'estimate', NaN, 'color', []);
 corners = struct('id', 0, 'xyz', []);
 planes = struct('id', 0, 'name', '', 'corners', [], 'material', '');
 
@@ -116,15 +116,24 @@ tmp = extractBetween(line, '<', '>');
 absorption = sscanf(strrep( tmp{1}, ':', '' ), '%f').';
 
 % extract scattering
-scattering = [0 0 0 0 0 0 0 0];
+scattering = nan(1, 8);
+estimate = NaN;
 if( length(tmp) == 2 )
-    scattering = sscanf(strrep( tmp{2}, ':', '' ), '%f').';
+
+    % estimate line 
+    if( contains(tmp{2}, 'estimate') )
+        estimate = str2double(extractBetween(tmp{2}, '(', ')'));
+    % explicit scattering definition
+    else
+        scattering = sscanf(strrep( tmp{2}, ':', '' ), '%f').';
+    end
 end
 
 % homogeneise num. el in abs/scat
 nBands = 8;
 material.absorption = [absorption zeros(nBands-length(absorption), 1)];
 material.scattering = [scattering zeros(nBands-length(scattering), 1)];
+material.estimate = estimate;
 
 % extract color
 tmp = extractBetween(line, '{', '}');

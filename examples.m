@@ -42,6 +42,12 @@ catt.write_source(filePath, sources);
 % plot scene (all arguments are optional)
 catt.plot_scene('geo', geo, 'sources', sources, 'receivers', receivers, 'md9', md9);
 
+% compute areas/faces statistiques
+[smat, tot] = catt.calc_surface(geo);
+
+% convert estimates to explicit scattering coefficients
+geo = catt.convert_estimate_scattering(geo);
+
 
 %% misc read files exported from catt (after simulation)
 
@@ -117,5 +123,4 @@ legend(strrep(names, '_', ' '), 'location', 'northeast');
 xticks(params.freqs);
 xlabel('freq (Hz)'); 
 ylabel('time (s)');
-
 
