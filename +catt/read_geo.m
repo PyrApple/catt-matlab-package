@@ -16,7 +16,7 @@ geo = struct();
 currentSection = 'materials';
 materials = struct('name', '', 'absorption', [], 'scattering', [], 'estimate', NaN, 'color', []);
 corners = struct('id', 0, 'xyz', []);
-planes = struct('id', 0, 'name', '', 'corners', [], 'material', '');
+planes = struct('id', 0, 'name', '', 'corners', [], 'material', '', 'edge_diffraction', false);
 
 % load file
 lines = catt.read_common(filePath);
@@ -170,8 +170,12 @@ material = lower(strip(tmp{2}));
 %     material = strip(t{3})
 % end
 
-% remove potential '*' from material name
-if( contains(material, '*') ); material = extractBefore(material, '*'); end
+% process '*' at end of material name (edge diffraction plane)
+plane.edge_diffraction = false;
+if( contains(material, '*') ) 
+    material = extractBefore(material, '*'); 
+    plane.edge_diffraction = true;
+end
 plane.material = material;
 
 end

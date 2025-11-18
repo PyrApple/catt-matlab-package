@@ -76,11 +76,15 @@ for iPlane = 1:length(geo.planes)
     
     % init locals
     plane = geo.planes(iPlane);
+    
+    % prepare edge diffraction syntax
+    edgeDiffStr = '';
+    if( plane.edge_diffraction ); edgeDiffStr = '*'; end
 
     % format line
     line = sprintf('[ %d %s / ', plane.id, plane.name);
     line = [line ' ' sprintf('%d ', plane.corners)];
-    line = sprintf('%s / %s ]\r\n', line, plane.material);
+    line = sprintf('%s / %s%s ]\r\n', line, plane.material, edgeDiffStr);
 
     % write line to file
     fprintf(fid, line);
