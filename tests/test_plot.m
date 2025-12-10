@@ -9,19 +9,20 @@ if( ~isfolder(outputFolder) ); mkdir(outputFolder); end
 
 % define rooms to test
 configs = {};
-configs{end+1} = struct('name', 'amst');
-configs{end+1} = struct('name', 'athenee');
-configs{end+1} = struct('name', 'coupled');
-configs{end+1} = struct('name', 'cube');
-configs{end+1} = struct('name', 'dumbbells');
-configs{end+1} = struct('name', 'elysees');
-configs{end+1} = struct('name', 'fogg');
-configs{end+1} = struct('name', 'orsay');
-configs{end+1} = struct('name', 'palaisdespapes');
-configs{end+1} = struct('name', 'pleyel');
-configs{end+1} = struct('name', 'shoebox');
-configs{end+1} = struct('name', 'snail');
-configs{end+1} = struct('name', 'vienne');
+% configs{end+1} = struct('name', 'amst');
+% configs{end+1} = struct('name', 'athenee');
+% configs{end+1} = struct('name', 'coupled');
+% configs{end+1} = struct('name', 'cube');
+% configs{end+1} = struct('name', 'dumbbells');
+% configs{end+1} = struct('name', 'elysees');
+% configs{end+1} = struct('name', 'fogg');
+% configs{end+1} = struct('name', 'orsay');
+% configs{end+1} = struct('name', 'palaisdespapes');
+% configs{end+1} = struct('name', 'pleyel');
+% configs{end+1} = struct('name', 'shoebox');
+% configs{end+1} = struct('name', 'snail');
+% configs{end+1} = struct('name', 'vienne');
+configs{end+1} = struct('name', 'saintpierre');
 
 % % define rooms to test (non public)
 % configs{end+1} = struct('name', 'aulamagna');

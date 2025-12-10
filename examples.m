@@ -14,6 +14,13 @@ config.src = fullfile(config.folder, 'cube_src.loc');
 % read input md9 file
 md9 = catt.read_md9(config.md9);
 
+% modify which receveirs and sources are active in md9
+md9.receivers_used = 0*md9.receivers_used; % reset
+md9 = catt.md9_enable_receivers(md9, [0 1 3 4]);
+md9.sources_used = 0*md9.sources_used; % reset
+% md9 = catt.md9_enable_sources(md9, [0 11 22 33]);
+md9 = catt.md9_enable_sources(md9, {'A0', 'A5', 'A2', 'B1', 'C2'});
+
 % write to file
 filePath = fullfile(config.folder, 'tmp.md9');
 catt.write_md9(filePath, md9);

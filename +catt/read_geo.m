@@ -26,6 +26,7 @@ if( isempty(lines) ); return; end
 
 % loop over file content
 concatLine = false;
+line = ''; % not defining line will raise error at "line = [line ' ' lines{iLine}];" below in older matlab versions
 for iLine = 1:length(lines)
 
     % read line 
@@ -131,8 +132,9 @@ end
 
 % homogeneise num. el in abs/scat
 nBands = 8;
-material.absorption = [absorption zeros(nBands-length(absorption), 1)];
-material.scattering = [scattering zeros(nBands-length(scattering), 1)];
+% if( length(absorption) == 6 ); absorption(7:8) = NaN; end
+material.absorption = [absorption nan(1, nBands-length(absorption))];
+material.scattering = [scattering nan(1, nBands-length(scattering))];
 material.estimate = estimate;
 
 % extract color
